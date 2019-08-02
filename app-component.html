@@ -1,0 +1,40 @@
+      <div id="PaginationCtrl">
+      
+      <!-- QUANTIDADE DE ITENS A SEREM EXIBIDOS -->
+        <mat-label>Visualizar :</mat-label>
+        <mat-form-field style="width: 50px">
+          <mat-select class="pageSelector" [(ngModel)]="tamanhoPagina" (ngModelChange)="filtrar()">
+            <mat-option [value]="5">5</mat-option>
+            <mat-option [value]="10">10</mat-option>
+            <mat-option [value]="15">15</mat-option>
+          </mat-select>
+        </mat-form-field>  
+        
+        <!-- ATÉ AQUI !-->
+      
+        <button (click)="selecionaPagina(1)" mat-button matTooltip="Primeira" [disabled]="paginaAtual==1">
+          <mat-icon>first_page</mat-icon>
+        </button>
+        <button (click)="selecionaPagina(paginaAtual - 1)" mat-button matTooltip="Anterior" [disabled]="paginaAtual==1">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+      
+      <!-- BOTOES PARA AS PAGINAS -->
+      
+        <button class="numero-pagina" (click)="selecionaPagina(1)" mat-button [disabled]="paginaAtual==1">1</button>
+      
+        <i *ngIf="(paginaAtual + limitesLaterais) > max_links && paginaAtual > 7 " class="numero-pagina" disabled>...</i> <!-- INCLUSAO DE "..." CASO O LIMITE DE LINKS SERA ULTRAPASSADO -->
+      
+        <ng-container *ngFor="let pag of paginas" >
+          <button *ngIf="pag >= 2 &&  pag < totalPaginas && paginaAtual > ( pag - limitesLaterais) && paginaAtual < (pag + limitesLaterais)" class="numero-pagina" (click)="selecionaPagina(pag)" mat-button [disabled]="paginaAtual==pag">
+              {{pag}}
+          </button>
+        </ng-container>
+      
+        <i *ngIf="totalPaginas > max_links " class="numero-pagina">...</i>  <!-- INCLUSAO DE "..." CASO O LIMITE DE LINKS SERA ULTRAPASSADO -->
+        
+        <button class="numero-pagina" *ngIf="totalPaginas > 1" (click)="selecionaPagina(totalPaginas)" mat-button [disabled]="paginaAtual==totalPaginas">{{totalPaginas}}</button>
+      
+      <!-- ATÉ AQUI  -->
+      
+      
