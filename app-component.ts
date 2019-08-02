@@ -10,7 +10,9 @@ export class MinutaListComponent implements OnInit {
   max_links: number = 15;
   limitesLaterais: number; 
   
-  constructor(){}
+  constructor(
+    private service : Service // EXEMPLO GENERICO, DEDUZ-SE QUE EXISTA UM SERVIÇO OU METODO DE BUSCA DE ITENS EM UM BANCO DE DADOS
+  ){}
 
   ngOnInit(){
     this.limitesLaterais = 15; // FAZ O LIMITE INICIAL SER 15 PARA MOSTRAR ESSA QUANTIDADE NO CARREGAMENTO DA PAGINA, DEPOIS ESSE LIMITE VAI MUDAR
@@ -19,7 +21,7 @@ export class MinutaListComponent implements OnInit {
   contarItens(){
     this.filtros = this.retornaFiltros(); //REGRAS DE FILTROS PARA CONSULTAR ITENS
     
-    this.getItens.contar(filtros).subscribe( o => { //SERVIÇO DE BUSCA NO BANCO DE DADOS 
+    this.service.contarItens(filtros).subscribe( o => { //SERVIÇO DE BUSCA NO BANCO DE DADOS 
       this.totalItens = parseInt(o.count);
       this.totalPaginas = Math.ceil(this.totalItens/this.tamanhoPagina);
       this.paginas = Array.from({length:this.totalPaginas},(v,k)=>k+1); // DESSE ARRAY IRAM SER EXIBIDAS AS PAGINAS.
