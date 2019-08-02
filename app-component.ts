@@ -17,7 +17,7 @@ export class MinutaListComponent implements OnInit {
   }
   
   contarItens(){
-    let filtros = this.retornaFiltros(); //REGRAS DE FILTROS PARA CONSULTAR ITENS
+    this.filtros = this.retornaFiltros(); //REGRAS DE FILTROS PARA CONSULTAR ITENS
     
     this.getItens.contar(filtros).subscribe( o => { //SERVIÇO DE BUSCA NO BANCO DE DADOS 
       this.totalItens = parseInt(o.count);
@@ -30,6 +30,12 @@ export class MinutaListComponent implements OnInit {
     }
   }
   
+  retornaFiltros(){
+    filtro1 = 'a';
+    filtro2 = 'b';  
+    filtro3 = 'c'; 
+    filtro4 = 'd';
+  }
   
   selecionaPagina(pagina: number){
     this.paginaAtual = pagina;
@@ -42,7 +48,7 @@ export class MinutaListComponent implements OnInit {
   }
   
   getItens(){
-    this.service.getItens().subscribe(item => {
+    this.service.getItens(this.filtros).subscribe(item => {
       this.itens.push(item);
     }
     
