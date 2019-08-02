@@ -31,10 +31,13 @@ export class MinutaListComponent implements OnInit {
   }
   
   retornaFiltros(){
-    filtro1 = 'a';
-    filtro2 = 'b';  
-    filtro3 = 'c'; 
-    filtro4 = 'd';
+    this.filtros = { 
+      filtro1 = 'a';
+      filtro2 = 'b';  
+      filtro3 = 'c'; 
+      filtro4 = 'd';
+    }
+    return this.filtros;
   }
   
   selecionaPagina(pagina: number){
